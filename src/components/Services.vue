@@ -13,6 +13,7 @@
         style="width: 100%"
         highlight-current-row
       >
+        <el-table-column prop="Name" label="服务名"></el-table-column>
         <el-table-column prop="Image" label="镜像"></el-table-column>
         <el-table-column prop="Replicas" label="Replicas"></el-table-column>
         <el-table-column prop="IP" label="IP"></el-table-column>
@@ -29,6 +30,7 @@ export default {
     return {
       DList: [],
       struct: {
+        Name: '',
         Image: '',
         Replicas: '',
         PublishedPort: '',
@@ -49,11 +51,13 @@ export default {
         console.log(data)
         if (data.message === 'success') {
           for (var i = 0; i < data.data.length; i++) {
+            this.struct.Name = data.data[i].Spec.Name.slice(data.data[i].Spec.Name.indexOf('-') + 1)
             this.struct.Image = data.data[i].Spec.TaskTemplate.ContainerSpec.Image
             this.struct.Replicas = data.data[i].Spec.Mode.Replicated.Replicas
             this.struct.PublishedPort = data.data[i].Spec.EndpointSpec.Ports[0].PublishedPort
             this.DList.push(this.struct)
             this.struct = {
+              Name: '',
               Image: '',
               Replicas: '',
               PublishedPort: '',

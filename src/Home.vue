@@ -58,6 +58,7 @@ export default {
     },
     nope () {
       alert('DO NOT TOUCH')
+      this.activeIndex = '1'
     }
   }
 }

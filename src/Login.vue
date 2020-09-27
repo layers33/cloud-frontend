@@ -217,7 +217,6 @@ export default {
     },
     login () {
       this.flagN = 0
-      console.log(this.lpassword)
       if (this.lusername === '') {
         alert('请输入用户名！')
         return
