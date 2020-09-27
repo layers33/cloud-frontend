@@ -6,7 +6,7 @@
           id="Main"
           style="width: 550px;float: right;margin-right:10%;margin-top: 10%"
         >
-          <div class="box">
+          <div class="box" style="margin-top: 100px">
             <div class="loginheader" v-if="!flagN">
               <span class="chevron">&nbsp;›&nbsp;</span> 登录 &nbsp;
             </div>
@@ -22,18 +22,6 @@
                     <td align="right">
                       <b-field>
                         <div align="left">
-                          <b-radio
-                            name="type"
-                            v-model="userType"
-                            native-value="S"
-                          >学生</b-radio
-                          >
-                          <b-radio
-                            name="type"
-                            v-model="userType"
-                            native-value="T"
-                          >教师</b-radio
-                          >
                         </div>
                       </b-field>
                     </td>
@@ -43,19 +31,6 @@
                       <b-icon icon="account"> </b-icon>
                     </td>
                     <td width="auto" align="left">
-                      <!--                        <input-->
-                      <!--                          type="text"-->
-                      <!--                          class="sl"-->
-                      <!--                          name="47
-                    898fbf4d5420a894dbd060f6763916611cd25baefcabca3234cea3fd5a5703"-->
-                      <!--                          value-->
-                      <!--                          autofocus="autofocus"-->
-                      <!--                          autocorrect="off"-->
-                      <!--                          spellcheck="false"-->
-                      <!--                          autocapitalize="off"-->
-                      <!--                          placeholder="用户名"-->
-                      <!--                          v-model="username"-->
-                      <!--                        />-->
                       <b-field>
                         <b-autocomplete
                           v-model="lusername"
@@ -74,17 +49,6 @@
                       <b-icon icon="account-key"> </b-icon>
                     </td>
                     <td width="auto" align="left">
-                      <!--                        <input-->
-                      <!--                          type="password"-->
-                      <!--                          class="sl"-->
-                      <!--                          name="cb10b4e849cb70f260623e3843c990f983a01cbb5f5899afd878f367e58ed4cb"-->
-                      <!--                          value-->
-                      <!--                          autocorrect="off"-->
-                      <!--                          spellcheck="false"-->
-                      <!--                          autocapitalize="off"-->
-                      <!--                          v-model="password"-->
-                      <!--                        />-->
-
                       <b-field>
                         <b-input
                           type="password"
@@ -114,8 +78,6 @@
                       >
                         注册
                       </b-button>
-                      <!--                        <input type="button" class="super normal button" value="登录" @click="login" />-->
-                      <!--                        <input type="button" class="super normal button" value="注册" @click="gotoRegister" />-->
                     </td>
                   </tr>
                   </tbody>
@@ -133,18 +95,6 @@
                     <td align="right">
                       <b-field>
                         <div align="left">
-                          <b-radio
-                            name="type"
-                            v-model="userType"
-                            native-value="S"
-                          >学生</b-radio
-                          >
-                          <b-radio
-                            name="type"
-                            v-model="userType"
-                            native-value="T"
-                          >教师</b-radio
-                          >
                         </div>
                       </b-field>
                     </td>
@@ -188,7 +138,7 @@
                     <td width="auto" align="left">
                       <b-input
                         type="password"
-                        placeholder="请输入密码"
+                        placeholder="请再次输入密码"
                         v-model="passwordagain"
                         style="width: 80%"
                         rounded
@@ -257,116 +207,96 @@ export default {
       rpassword: '',
       rusername: '',
       passwordagain: '',
-      userType: 'S',
       flagN: 0
     }
   },
   methods: {
-    // gotoLogin() {
-    //   this.flagN = 0;
-    //   this.rusername = "";
-    //   this.rpassword = "";
-    //   this.passwordagain = "";
-    //   /*console.log("test");*/
-    // },
-    // login() {
-    //   this.flagN = 0;
-    //   console.log(this.lpassword);
-    //   if (this.lusername == "") {
-    //     alert("请输入用户名！");
-    //     return;
-    //   }
-    //   if (this.lpassword == "") {
-    //     alert("请输入密码！");
-    //     return;
-    //   }
-    //   this.axios({
-    //     method: "post",
-    //     url: "http://106.53.58.194:8000/user/login",
-    //     data: {
-    //       Username: this.lusername,
-    //       Password: this.lpassword,
-    //       Identity: this.userType
-    //     }
-    //   })
-    //     .then(res => {
-    //       const { data } = res;
-    //       console.log(data);
-    //       if (data.message == "success") {
-    //         this.$store.state.user.uuid = data.data;
-    //         this.$store.state.user.userName = this.lusername;
-    //         this.$store.state.user.userType = this.userType;
-    //         this.$store.state.user.isTeacher = this.userType == "S" ? 0 : 1;
-    //         let hold="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
-    //         localStorage.setItem('avatar',hold);
-    //         console.log("321321321321");
-    //         localStorage.setItem("username", this.$store.state.user.userName);
-    //         localStorage.setItem("usertype", this.$store.state.user.userType);
-    //         localStorage.setItem("uuid", this.$store.state.user.uuid);
-    //         localStorage.setItem("isLogin", 1);
-    //         localStorage.setItem("isTeacher", this.$store.state.user.isTeacher);
-    //         // TBD
-    //         this.$message.success("登录成功！");
-    //         //alert("登录成功！");
-    //         this.$router.push("/home");
-    //       } else {
-    //         this.$message.success("用户名或密码错误！");
-    //         //alert("用户名或密码错误！");
-    //         console.log("fail");
-    //       }
-    //     })
-    //     .catch(() => {});
-    // },
-    // gotoRegister() {
-    //   this.lusername = "";
-    //   this.lpassword = "";
-    //   this.flagN = 1;
-    //   // this.$router.push("/registerhome");
-    // },
-    // register() {
-    //   if (this.rusername == "") {
-    //     alert("请设置用户名！");
-    //     return;
-    //   }
-    //
-    //   if (this.rpassword == "") {
-    //     alert("请设置密码！");
-    //     return;
-    //   }
-    //   console.log(this.userType);
-    //   if (this.userType == "s") this.userType = "S";
-    //   else if (this.userType == "t") this.userType = "T";
-    //   if (this.rpassword == this.passwordagain) {
-    //     this.axios({
-    //       method: "post",
-    //       url: "http://106.53.58.194:8000/user/register",
-    //       data: {
-    //         Username: this.rusername,
-    //         Password: this.rpassword,
-    //         Identity: this.userType
-    //       }
-    //     })
-    //       .then(res => {
-    //         const { data } = res;
-    //         console.log(data);
-    //         if (data.message == "success") {
-    //           alert("注册成功");
-    //           this.lusername = this.rusername;
-    //           this.lpassword = this.rpassword;
-    //           this.login();
-    //         } else {
-    //           alert(data.message);
-    //           this.rusername = "";
-    //           this.rpassword = "";
-    //           this.passwordagain = "";
-    //         }
-    //       })
-    //       .catch(() => {});
-    //   } else {
-    //     alert("两次密码不一致！");
-    //     console.log("两次密码不一致");
-    //   }
-    // }
+    gotoLogin () {
+      this.flagN = 0
+      this.rusername = ''
+      this.rpassword = ''
+      this.passwordagain = ''
+    },
+    login () {
+      this.flagN = 0
+      console.log(this.lpassword)
+      if (this.lusername === '') {
+        alert('请输入用户名！')
+        return
+      }
+      if (this.lpassword === '') {
+        alert('请输入密码！')
+        return
+      }
+      this.axios({
+        method: 'post',
+        url: 'http://10.251.253.81:8000/user/login',
+        data: {
+          username: this.lusername,
+          password: this.lpassword
+        }
+      })
+        .then(res => {
+          const { data } = res
+          console.log(data)
+          if (data.message === 'success') {
+            localStorage.setItem('userid', data.data._id)
+            localStorage.setItem('username', data.data.username)
+            localStorage.setItem('identity', data.data.identity)
+            localStorage.setItem('name', data.data.name)
+
+            this.$message.success('登录成功！')
+            this.$router.push('/home')
+          } else {
+            this.$message.success('用户名或密码错误！')
+          }
+        })
+        .catch(() => {})
+    },
+    gotoRegister () {
+      this.lusername = ''
+      this.lpassword = ''
+      this.flagN = 1
+    },
+    register () {
+      if (this.rusername === '') {
+        alert('请设置用户名！')
+        return
+      }
+
+      if (this.rpassword === '') {
+        alert('请设置密码！')
+        return
+      }
+      if (this.rpassword === this.passwordagain) {
+        this.axios({
+          method: 'post',
+          url: 'http://10.251.253.81:8000/user/register',
+          data: {
+            username: this.rusername,
+            password: this.rpassword
+          }
+        })
+          .then(res => {
+            const { data } = res
+            console.log(data)
+            if (data.message === 'success') {
+              alert('注册成功')
+              this.lusername = this.rusername
+              this.lpassword = this.rpassword
+              this.login()
+            } else {
+              alert(data.message)
+              this.rusername = ''
+              this.rpassword = ''
+              this.passwordagain = ''
+            }
+          })
+          .catch(() => {})
+      } else {
+        alert('两次密码不一致！')
+      }
+    }
   }
 }
 </script>

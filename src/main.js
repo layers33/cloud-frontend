@@ -7,11 +7,14 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.config.productionTip = false
 
 Vue.use(VueAxios, axios)
 Vue.use(Buefy)
+Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({
