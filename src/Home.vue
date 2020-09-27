@@ -12,10 +12,11 @@
       <el-menu-item index="1">我的容器</el-menu-item>
       <el-menu-item index="2">申请容器</el-menu-item>
       <el-menu-item index="3" disabled>消息中心</el-menu-item>
-      <el-menu-item index="4" disabled>申请列表</el-menu-item>
+      <el-menu-item index="4" :disabled="identity">申请列表</el-menu-item>
       <el-menu-item style="float: right" @click="logout">登出</el-menu-item>
     </el-menu>
     <el-main>
+      <services v-if="activeIndex==='1'"></services>
       <apply v-if="activeIndex==='2'"></apply>
     </el-main>
   </div>
@@ -24,13 +25,18 @@
 
 <script>
 import Apply from './components/Apply'
+import Services from './components/Services'
 export default {
   name: 'Home',
-  components: {Apply},
+  components: {Services, Apply},
   data () {
     return {
-      activeIndex: '1'
+      activeIndex: '1',
+      identity: false
     }
+  },
+  mounted () {
+    this.identity = localStorage.getItem('identity') !== '1'
   },
   methods: {
     handleSelect (key, keyPath) {

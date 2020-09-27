@@ -195,10 +195,8 @@ const customIconConfig = {
   }
 }
 export default {
-  inject: ['reload'],
   created () {
     this.$buefy.config.setOptions(customIconConfig)
-    localStorage('isLogin', 0)
   },
   data () {
     return {
@@ -238,7 +236,7 @@ export default {
       })
         .then(res => {
           const { data } = res
-          console.log(data)
+          // console.log(data)
           if (data.message === 'success') {
             localStorage.setItem('userid', data.data._id)
             localStorage.setItem('username', data.data.username)
