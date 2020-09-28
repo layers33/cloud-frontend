@@ -22,8 +22,26 @@
         <el-table-column prop="Replicas" label="Replicas"></el-table-column>
         <el-table-column prop="IP" label="IP"></el-table-column>
         <el-table-column prop="PublishedPort" label="端口"></el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button @click="scale(scope.row)" type="text" size="small"
+            >伸缩
+            </el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </el-main>
+    <el-dialog
+      title="选择新的Replicas"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <el-input-number size="mini" v-model="num" :min="1" :max="6"></el-input-number>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="confirm">确 定</el-button>
+  </span>
+    </el-dialog>
   </el-container>
 </template>
 
@@ -39,9 +57,13 @@ export default {
         Image: '',
         Replicas: '',
         PublishedPort: '',
-        IP: '10.251.253.81'
+        IP: '10.251.253.81',
+        serviceId: ''
       },
-      identity: true
+      identity: true,
+      dialogVisible: false,
+      num: 0,
+      service: ''
     }
   },
   mounted () {
@@ -55,7 +77,7 @@ export default {
     })
       .then(res => {
         const { data } = res
-        // console.log(data)
+        console.log(data)
         if (data.message === 'success') {
           for (var i = 0; i < data.data.length; i++) {
             if (this.identity === false) {
@@ -64,11 +86,13 @@ export default {
               this.struct.Image = data.data[i].service.Spec.TaskTemplate.ContainerSpec.Image
               this.struct.Replicas = data.data[i].service.Spec.Mode.Replicated.Replicas
               this.struct.PublishedPort = data.data[i].service.Spec.EndpointSpec.Ports[0].PublishedPort
+              this.struct.serviceId = data.data[i].service.ID
             } else {
               this.struct.Name = data.data[i].Spec.Name.slice(data.data[i].Spec.Name.indexOf('-') + 1)
               this.struct.Image = data.data[i].Spec.TaskTemplate.ContainerSpec.Image
               this.struct.Replicas = data.data[i].Spec.Mode.Replicated.Replicas
               this.struct.PublishedPort = data.data[i].Spec.EndpointSpec.Ports[0].PublishedPort
+              this.struct.serviceId = data.data[i].ID
             }
             this.DList.push(this.struct)
             this.struct = {
@@ -77,7 +101,8 @@ export default {
               Image: '',
               Replicas: '',
               PublishedPort: '',
-              IP: '10.251.253.81'
+              IP: '10.251.253.81',
+              serviceId: ''
             }
           }
         } else {
@@ -85,6 +110,41 @@ export default {
         }
       })
       .catch(() => {})
+  },
+  methods: {
+    scale (attr) {
+      console.log(attr.serviceId)
+      this.dialogVisible = true
+      this.num = attr.Replicas
+      this.service = attr.serviceId
+    },
+    handleClose (done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
+    },
+    confirm () {
+      this.dialogVisible = false
+      this.axios({
+        method: 'post',
+        url: 'http://10.251.253.81:8000/service/scale',
+        data: {
+          serviceId: this.service,
+          replicas: this.num
+        }
+      })
+        .then(res => {
+          const { data } = res
+          if (data.message === 'success') {
+            this.$message.success('伸缩中，请等待片刻刷新')
+          } else {
+            this.$message.error('失败！')
+          }
+        })
+        .catch(() => {})
+    }
   }
 }
 </script>
