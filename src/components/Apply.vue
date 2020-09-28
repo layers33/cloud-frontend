@@ -81,7 +81,7 @@ export default {
           method: 'post',
           url: 'http://10.251.253.81:8000/service/apply',
           data: {
-            userId: localStorage.getItem('username'),
+            userId: localStorage.getItem('userid'),
             image: this.value,
             replicas: this.num,
             serviceName: this.input

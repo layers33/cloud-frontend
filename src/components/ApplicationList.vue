@@ -19,14 +19,12 @@
         <b-field
           grouped
           group-multiline
-          style="float: right;"
+          style="float: left;margin-left: 40%"
         >
           <button class="button field is-success" @click="apply(1)">
-            <b-icon icon="check"></b-icon>
             <span>通过选中的申请</span>
           </button>
           <button class="button field is-danger" @click="apply(0)">
-            <b-icon icon="close"></b-icon>
             <span>拒绝选中的申请</span>
           </button>
         </b-field>
@@ -49,7 +47,7 @@ export default {
           numeric: true
         },
         {
-          field: 'userId',
+          field: 'username',
           label: '用户名'
         },
         {
