@@ -27,6 +27,9 @@
             <el-button @click="scale(scope.row)" type="text" size="small"
             >伸缩
             </el-button>
+            <el-button @click="remove(scope.row)" type="text" size="small"
+            >删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -144,6 +147,31 @@ export default {
           }
         })
         .catch(() => {})
+    },
+    remove (attr) {
+      this.$confirm('确认删除？')
+        .then(_ => {
+          this.axios({
+            method: 'post',
+            url: 'http://10.251.253.81:8000/service/deleteService',
+            data: {
+              serviceId: attr.serviceId
+            }
+          })
+            .then(res => {
+              const { data } = res
+              if (data.message === 'success') {
+                this.DList = this.DList.filter(function (item) {
+                  return item.serviceId !== attr.serviceId
+                })
+                this.$message.success('删除成功！')
+              } else {
+                this.$message.error('连接失败！')
+              }
+            })
+            .catch(() => {})
+        })
+        .catch(_ => {})
     }
   }
 }
